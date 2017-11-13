@@ -33,7 +33,6 @@ $items = [
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
