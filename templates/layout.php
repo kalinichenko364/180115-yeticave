@@ -1,59 +1,8 @@
-<?php
-
-// ставки пользователей, которыми надо заполнить таблицу
-$bets = [
-    ['name' => 'Иван', 'price' => 11500, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
-    ['name' => 'Константин', 'price' => 11000, 'ts' => strtotime('-' . rand(1, 18) .' hour')],
-    ['name' => 'Евгений', 'price' => 10500, 'ts' => strtotime('-' . rand(25, 50) .' hour')],
-    ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
-];
-
-function getNumEnding( $number, $endingArray){
-	$result = '';
-	$number = $number % 100;
-	if( $number>=11 && $number<=19 ){
-		$result = $endingArray[2];
-	}else{
-		$x = $number%10;
-		switch($x){
-			case(1): $result = $endingArray[0]; break;
-			case(2): 
-			case(3):
-			case(4): $result = $endingArray[1]; break;
-			default: $result = $endingArray[2];
-		}
-	}
-	return $result;
-}
-
-function howLongTime( int $lastTime ){
-	$now=strtotime('now');
-	$hoursName=["час", "часа", "часов"];
-	$minutesName=["минута", "минуты", "минут"];
-	$diff = $now-$lastTime;
-	$hours=$diff/3600;
-	$minutes=($diff/60)%60;
-	$seconds=$diff-($hours*3600 + $minutes*60);
-	if($hours>24){
-		return date("d.m.y в H.i", $lastTime);
-	}
-	if($hours<1){
-		$result = sprintf( " %d %s назад", $minutes, getNumEnding($minutes, $minutesName) );
-		return $result;
-	}
-	
-	$result = sprintf( " %d %s назад", $hours, getNumEnding($hours, $hoursName) );
-	
-	return $result;
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>DC Ply Mens 2016/2017 Snowboard</title>
+    <title><?=$title;?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -62,107 +11,43 @@ function howLongTime( int $lastTime ){
 <header class="main-header">
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
-        <a class="main-header__logo" href="index.html">
+        <a class="main-header__logo">
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
             <input type="search" name="search" placeholder="Поиск лота">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
-        <a class="main-header__add-lot button" href="">Добавить лот</a>
+        <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
+
         <nav class="user-menu">
-            <ul class="user-menu__list">
-                <li class="user-menu__item">
-                    <a href="">Регистрация</a>
-                </li>
-                <li class="user-menu__item">
-                    <a href="#">Вход</a>
-                </li>
-            </ul>
+
+        <?php if ($is_auth) : ?>
+          <div class="user-menu__image">
+            <img src="<?=$user_avatar; ?>" width="40" height="40" alt="Пользователь">
+          </div>
+          <div class="user-menu__logged">
+            <p><?=$user_name; ?></p>
+          </div>
+          
+        <?php else : ?>
+          <ul class="user-menu__list">
+            <li class="user-menu__item">
+              <a href="#">Регистрация</a>
+            </li>
+            <li class="user-menu__item">
+              <a href="#">Вход</a>
+            </li>
+          </ul>
+          
+        <?php endif ; ?>
+
         </nav>
     </div>
 </header>
 
-<main>
-    <nav class="nav">
-        <ul class="nav__list container">
-            <li class="nav__item">
-                <a href="">Доски и лыжи</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Крепления</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Ботинки</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Одежда</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Инструменты</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Разное</a>
-            </li>
-        </ul>
-    </nav>
-    <section class="lot-item container">
-        <h2>DC Ply Mens 2016/2017 Snowboard</h2>
-        <div class="lot-item__content">
-            <div class="lot-item__left">
-                <div class="lot-item__image">
-                    <img src="img/lot-image.jpg" width="730" height="548" alt="Сноуборд">
-                </div>
-                <p class="lot-item__category">Категория: <span>Доски и лыжи</span></p>
-                <p class="lot-item__description">Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
-                    снег
-                    мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот
-                    снаряд
-                    отличной гибкостью и отзывчивостью, а симметричная геометрия в сочетании с классическим прогибом
-                    кэмбер
-                    позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                    просто
-                    посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла
-                    равнодушным.</p>
-            </div>
-            <div class="lot-item__right">
-                <div class="lot-item__state">
-                    <div class="lot-item__timer timer">
-                        10:54:12
-                    </div>
-                    <div class="lot-item__cost-state">
-                        <div class="lot-item__rate">
-                            <span class="lot-item__amount">Текущая цена</span>
-                            <span class="lot-item__cost">11 500</span>
-                        </div>
-                        <div class="lot-item__min-cost">
-                            Мин. ставка <span>12 000 р</span>
-                        </div>
-                    </div>
-                    <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
-                        <p class="lot-item__form-item">
-                            <label for="cost">Ваша ставка</label>
-                            <input id="cost" type="number" name="cost" placeholder="12 000">
-                        </p>
-                        <button type="submit" class="button">Сделать ставку</button>
-                    </form>
-                </div>
-                <div class="history">
-                    <h3>История ставок (<span>4</span>)</h3>
-                    <!-- заполните эту таблицу данными из массива $bets-->
-                    <table class="history__list">
-                      <? foreach ($bets as $bet) : ?>
-                        <tr class="history__item">
-                            <td class="history__name"><?=$bet['name']; ?></td>
-                            <td class="history__price"><?=$bet['price']; ?> р</td>
-                            <td class="history__time"><?=howLongTime($bet['ts']); ?></td>
-                        </tr>
-                      <? endforeach ; ?>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
+<main class="container">
+    <?=$content;?>
 </main>
 
 <footer class="main-footer">
