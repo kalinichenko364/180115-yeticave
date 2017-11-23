@@ -21,9 +21,10 @@ $now = strtotime('now');
 $lot_time_remaining = gmdate("H:i", $tomorrow - $now);
 
 
-require_once('functions.php');
-require_once('config.php');
 require_once('data.php');
+require_once('functions.php');
+
+//require_once('config.php');
 
 
 //Отключение страницы
@@ -38,12 +39,19 @@ require_once('data.php');
 
 
 //Сборка шаблона главной страницы
-$page_content = include_template('templates/index.php', ['items' => $items]);
+$page_content = include_template('templates/index.php', [
+  'categories' => $categories,
+  'lots' => $lots,
+  'lot_time_remaining' => $lot_time_remaining
+]);
 
 $layout_content = include_template('templates/layout.php', [
-  'content' => $page_content,
+  'main_content' => $page_content,
   'categories' => $categories,
-  'title' => 'YetiCave - Главная страница'
+  'title' => 'YetiCave - Главная страница',
+  'is_auth' => $is_auth,
+  'user_name' => $user_name,
+  'user_avatar' => $user_avatar
 ]);
 
 print($layout_content);

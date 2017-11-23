@@ -1,5 +1,15 @@
 <?php
 
+require_once('data.php');
+
+$id = $_GET['id'];
+if (!in_array($lots[$id], $lots) || !isset($_GET['id'])) {
+  header('Location: templates/404.php');
+  
+  exit;
+}
+
+
 // ставки пользователей, которыми надо заполнить таблицу
 $bets = [
     ['name' => 'Иван', 'price' => 11500, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
@@ -53,7 +63,7 @@ function howLongTime( int $lastTime ){
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>DC Ply Mens 2016/2017 Snowboard</title>
+    <title><?=$lots[$id]['name'];?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -62,7 +72,7 @@ function howLongTime( int $lastTime ){
 <header class="main-header">
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
-        <a class="main-header__logo" href="index.html">
+        <a class="main-header__logo" href="index.php">
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
@@ -86,34 +96,21 @@ function howLongTime( int $lastTime ){
 <main>
     <nav class="nav">
         <ul class="nav__list container">
+           <? foreach ($categories as $category => $value) :?>
             <li class="nav__item">
-                <a href="">Доски и лыжи</a>
+                <a href=""><?=$value;?></a>
             </li>
-            <li class="nav__item">
-                <a href="">Крепления</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Ботинки</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Одежда</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Инструменты</a>
-            </li>
-            <li class="nav__item">
-                <a href="">Разное</a>
-            </li>
+            <?endforeach ;?>
         </ul>
     </nav>
     <section class="lot-item container">
-        <h2>DC Ply Mens 2016/2017 Snowboard</h2>
+        <h2><?=$lots[$id]['name'];?></h2>
         <div class="lot-item__content">
             <div class="lot-item__left">
                 <div class="lot-item__image">
-                    <img src="img/lot-image.jpg" width="730" height="548" alt="Сноуборд">
+                    <img src="<?=$lots[$id]['img_url'];?>" width="730" height="548" alt="<?=$lots[$id]['img_alt'];?>">
                 </div>
-                <p class="lot-item__category">Категория: <span>Доски и лыжи</span></p>
+                <p class="lot-item__category">Категория: <span><?=$lots[$id]['category_name'];?></span></p>
                 <p class="lot-item__description">Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
                     снег
                     мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот

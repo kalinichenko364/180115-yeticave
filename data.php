@@ -1,7 +1,7 @@
 <?php
 $categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
 
-$items = [
+$lots = [
   ['name' => '2014 Rossignol District Snowboard',  'category_name' => 'Доски и лыжи', 'price' => '10999', 'img_url' => 'img/lot-1.jpg', 'img_alt' => 'Сноуборд'],
   ['name' => 'DC Ply Mens 2016/2017 Snowboard',  'category_name' => 'Доски и лыжи', 'price' => '159999', 'img_url' => 'img/lot-2.jpg', 'img_alt' => 'Сноуборд'],
   ['name' => 'Крепления Union Contact Pro 2015 года размер L/XL',  'category_name' => 'Крепления', 'price' => '8000', 'img_url' => 'img/lot-3.jpg', 'img_alt' => 'Крепления'],

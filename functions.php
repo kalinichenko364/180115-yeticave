@@ -1,5 +1,8 @@
 <?php
 
+// Время лота
+
+
 //Обрезание текста
 function cut_text($text, $num_letters) {
   $num = mb_strlen($text);
